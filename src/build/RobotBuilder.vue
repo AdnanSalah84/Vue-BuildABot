@@ -3,31 +3,31 @@
     <!-- <button class="add-to-cart" @click="addToCart()">Add to Cart</button> -->
     <div class="top-row">
       <div class="top part">
-        <img :src="availableParts.heads[selectedNextHeadIndex].src" title="head"/>
+        <img :src="selectedRobot.head.src" title="head"/>
         <button @click="selectPreviousHead()" class="prev-selector">&#9668;</button>
         <button @click="selectNextHead()" class="next-selector">&#9658;</button>
       </div>
     </div>
     <div class="middle-row">
       <div class="left part">
-        <img :src="availableParts.arms[selectedLeftArmIndex].src" title="left arm"/>
+        <img :src="selectedRobot.leftArm.src" title="left arm"/>
         <button @click="selectPreviousLeftArm()" class="prev-selector">&#9650;</button>
         <button @click="selectNextLeftArm()" class="next-selector">&#9660;</button>
       </div>
       <div class="center part">
-        <img :src="availableParts.torsos[selectedTorsosIndex].src" title="left arm"/>
+        <img :src="selectedRobot.torso.src" title="left arm"/>
         <button @click="selectPreviousTorsos()" class="prev-selector">&#9668;</button>
         <button @click="selectNextTorsos()" class="next-selector">&#9658;</button>
       </div>
       <div class="right part">
-        <img :src="availableParts.arms[selectedRightArmIndex].src" title="left arm"/>
+        <img :src="selectedRobot.rightArm.src" title="left arm"/>
         <button @click="selectPreviousRightArm()" class="prev-selector">&#9650;</button>
         <button @click="selectNextRightArm()" class="next-selector">&#9660;</button>
       </div>
     </div>
     <div class="bottom-row">
       <div class="bottom part">
-        <img :src="availableParts.bases[selectedBaseIndex].src" title="left arm"/>
+        <img :src="selectedRobot.base.src" title="left arm"/>
         <button @click="selectPreviousBase()" class="prev-selector">&#9668;</button>
         <button @click="selectNextBase()" class="next-selector">&#9658;</button>
       </div>
@@ -70,19 +70,30 @@ export default {
     data() {
       return {
         availableParts,
-        selectedNextHeadIndex:0,
+        selectedHeadIndex:0,
         selectedLeftArmIndex:0,
-        selectedTorsosIndex:0,
+        selectedTorsoIndex:0,
         selectedRightArmIndex:0,
         selectedBaseIndex:0,
       };
     },
+    computed : {
+      selectedRobot() {
+        return {
+          head: availableParts.heads[this.selectedHeadIndex],
+          leftArm: availableParts.arms[this.selectedLeftArmIndex],
+          torso: availableParts.torsos[this.selectedTorsoIndex],
+          rightArm: availableParts.arms[this.selectedRightArmIndex],
+          base: availableParts.bases[this.selectedBaseIndex],
+        };
+      }
+    },
     methods: {
       selectNextHead(){
-       this.selectedNextHeadIndex = getNextValidIndex(this.selectedNextHeadIndex, availableParts.heads.length);
+       this.selectedHeadIndex = getNextValidIndex(this.selectedHeadIndex, availableParts.heads.length);
       },
       selectPreviousHead(){
-        this.selectedNextHeadIndex = getPreviousValidIndex(this.selectedNextHeadIndex, availableParts.heads.length);
+        this.selectedHeadIndex = getPreviousValidIndex(this.selectedHeadIndex, availableParts.heads.length);
       },
       selectPreviousLeftArm() {
         this.selectedLeftArmIndex = getNextValidIndex(this.selectedLeftArmIndex, availableParts.arms.length);
@@ -92,10 +103,10 @@ export default {
       },
 
       selectPreviousTorsos() {
-        this.selectedTorsosIndex = getNextValidIndex(this.selectedTorsosIndex, availableParts.torsos.length);
+        this.selectedTorsoIndex = getNextValidIndex(this.selectedTorsoIndex, availableParts.torsos.length);
       },
       selectNextTorsos() {
-        this.selectedTorsosIndex = getPreviousValidIndex(this.selectedTorsosIndex, availableParts.torsos.length);
+        this.selectedTorsoIndex = getPreviousValidIndex(this.selectedTorsoIndex, availableParts.torsos.length);
       },
 
       selectPreviousRightArm() {
