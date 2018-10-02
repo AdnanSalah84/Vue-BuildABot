@@ -41,7 +41,7 @@ export default {
   },
   computed: {
     selectedPart() {
-      return this.parts[this.selectedPartIndex];
+      return parts[this.selectedPartIndex];
     },
   },
 //   created() {
