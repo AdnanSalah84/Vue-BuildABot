@@ -1,7 +1,10 @@
 <template>
   <div class="content">
     <div class="preview">
-      <!-- <CollapsibleSection> -->
+      <!-- <CollapsibleSection> 
+      Try Comment out
+      </CollapsibleSection> -->
+      <CollapsibleSection>
         <div class="preview-content">
           <div class="top-row">
             <img :src="selectedRobot.head.src" />
@@ -14,11 +17,11 @@
           <div class="bottom-row">
             <img :src="selectedRobot.base.src" />
           </div>
-             <button class="add-to-cart" @click="addToCart()">Add to Cart</button>
         </div>
-      <!-- </CollapsibleSection> -->
+      </CollapsibleSection>
+      <button class="add-to-cart" @click="addToCart()">Add to Cart</button>
     </div>
- 
+
     <div class="top-row">
       <!-- <div class="robot-name" >
           {{selectedRobot.head.title}}
@@ -58,11 +61,13 @@
   import availableParts from '../data/parts';
   import createdHookMixin from './created-hook-mixin';
   import PartSelector from './PartSelector';
+  import CollapsibleSection from '../shared/CollapsibleSection.vue';
 
   export default {
     name: 'RobotBuilder',
     components: {
-      PartSelector
+      PartSelector,
+      CollapsibleSection
     },
     data() {
       return {
