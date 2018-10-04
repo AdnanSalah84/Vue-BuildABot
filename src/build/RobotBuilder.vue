@@ -1,6 +1,6 @@
 <template>
-  <div class="content">
-    <div v-if="availableParts" class="preview">
+  <div v-if="availableParts" class="content">
+    <div class="preview">
       <!-- <CollapsibleSection> 
       Try Comment out
       </CollapsibleSection> -->
@@ -49,7 +49,7 @@
   export default {
     name: 'RobotBuilder',
     created(){
-      this.$store.dispatch('getParts');
+      this.$store.dispatch('robots/getParts');
     },
     beforeRouteLeave(to, from, next) {
       if(this.addedToCart){
@@ -80,7 +80,7 @@
     mixins: [createdHookMixin],
     computed: {
       availableParts(){
-        return this.$store.state.parts;
+        return this.$store.state.robots.parts;
       },
       saleBorderClass() {
         return this.selectedRobot.head.onSale ? 'sale-border' : '';
@@ -101,7 +101,8 @@
           robot.base.cost;
         //Vuex
         //this.$store.commit('addRobotToCart', Object.assign({}, robot, { cost }));
-        this.$store.dispatch('addRobotToCart', Object.assign({}, robot, { cost }));
+        this.$store.dispatch('robots/addRobotToCart', Object.assign({}, robot, { cost }))
+          .then(() => this.$router.push('/cart'));
         
         //this.cart.push(Object.assign({}, robot, { cost }));
         this.addedToCart = true;
