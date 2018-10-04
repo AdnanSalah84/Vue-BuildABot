@@ -8,10 +8,12 @@
 </template>
 
 <script>
-import parts from '../data/parts';
+//import parts from '../data/parts';
+import getPartsMixin from './get-parts-mixin.js';
 
 export default {
   name: 'PartInfo',
+  mixins: [getPartsMixin],
   //props: ['partType', 'id'],
   props: {
     partType: { type: String },
@@ -30,7 +32,7 @@ export default {
 
         const { partType, id } = this; // if props is true in Router index!
 
-        return parts[partType].find(part => part.id === +id);
+        return this.parts[partType].find(part => part.id === +id);
       }
   }
 
