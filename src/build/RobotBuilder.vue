@@ -100,7 +100,9 @@
           robot.rightArm.cost +
           robot.base.cost;
         //Vuex
-        this.$store.commit('addRobotToCart', Object.assign({}, robot, { cost }));
+        //this.$store.commit('addRobotToCart', Object.assign({}, robot, { cost }));
+        this.$store.dispatch('addRobotToCart', Object.assign({}, robot, { cost }));
+        
         //this.cart.push(Object.assign({}, robot, { cost }));
         this.addedToCart = true;
       },
