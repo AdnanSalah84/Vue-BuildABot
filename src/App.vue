@@ -6,7 +6,7 @@
     <br/>
     Root Getter Foo: {{rootGetterFoo}} <br/>
     Robots Getter Foo: {{robotsGetterFoo}} <br/>
-    Users Getter Foo: {{usersGetterFoo}} <br/>
+    <!-- Users Getter Foo: {{usersGetterFoo}} <br/> -->
     <header> 
       <nav>
         <ul>

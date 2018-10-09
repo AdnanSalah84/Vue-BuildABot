@@ -41,6 +41,8 @@
 </template>
 
 <script>
+  import { mapActions, mapMutations } from 'vuex';
+
   //import availableParts from '../data/parts';
   import createdHookMixin from './created-hook-mixin';
   import PartSelector from './PartSelector';
@@ -49,7 +51,8 @@
   export default {
     name: 'RobotBuilder',
     created(){
-      this.$store.dispatch('robots/getParts');
+      //this.$store.dispatch('robots/getParts');
+      this.getParts(); // Added mapAction
     },
     beforeRouteLeave(to, from, next) {
       if(this.addedToCart){
@@ -92,6 +95,9 @@
       },
     },
     methods: {
+      ...mapActions('robots', ['getParts', 'addRobotToCart']),
+      //...mapMutations('robots', ['someMutations']), // If we have mutation then
+      
       addToCart() {
         const robot = this.selectedRobot;
         const cost = robot.head.cost +
@@ -101,7 +107,12 @@
           robot.base.cost;
         //Vuex
         //this.$store.commit('addRobotToCart', Object.assign({}, robot, { cost }));
-        this.$store.dispatch('robots/addRobotToCart', Object.assign({}, robot, { cost }))
+        
+        //this.$store.dispatch('robots/addRobotToCart', Object.assign({}, robot, { cost }))
+          //.then(() => this.$router.push('/cart'));
+
+        //Added mapActions  
+        this.addRobotToCart(Object.assign({}, robot, { cost }))
           .then(() => this.$router.push('/cart'));
         
         //this.cart.push(Object.assign({}, robot, { cost }));
