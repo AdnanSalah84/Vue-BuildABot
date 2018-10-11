@@ -1,6 +1,7 @@
 <template>
   <div class="part" :class="position">
     <!-- <img @click="showPartInfo" :src="selectedPart.src" title="arm"/> -->
+    <!-- {{pinPadding}} -->
     <router-link :to="{
       name: 'Parts', 
       params: { 
@@ -13,14 +14,18 @@
     <button @click="selectNextPart()" class="next-selector"></button>
     <!-- <span v-pin:position.top.right class="sale" v-show="selectedPart.onSale">Sale!</span> -->
 
-    <span v-pin="{ bottom: '10px', right: '5px' }" class="sale" v-show="selectedPart.onSale">Sale!</span>
+    <!-- <span v-pin="{ bottom: '10px', right: '5px' }" class="sale" v-show="selectedPart.onSale">Sale!</span> -->
+     <span
+      @click="pinPadding='30px'" 
+      v-pin="{ bottom: pinPadding, right: pinPadding }" class="sale" 
+      v-show="selectedPart.onSale">Sale!</span>
   </div>
 </template>
 
 <script>
 //import availableParts from '../data/parts';
 //const parts = availableParts.heads;
-import pinDirective from '../shared/pin-directive';
+//import pinDirective from '../shared/pin-directive'; //Making Directive Availble Globally - main.js
 
 function getPreviousValidIndex(index, length) {
   const deprecatedIndex = index - 1;
@@ -33,7 +38,7 @@ function getNextValidIndex(index, length) {
 }
 
 export default {
-  directives: { pin: pinDirective },
+ //directives: { pin: pinDirective },
  //props: ['parts','position'],
    props: {
      parts: {
@@ -49,7 +54,10 @@ export default {
      },
    },
   data() {
-    return { selectedPartIndex: 0 };
+    return { 
+        selectedPartIndex: 0,
+        pinPadding:'10px'
+      };
   },
   computed: {
     selectedPart() {
