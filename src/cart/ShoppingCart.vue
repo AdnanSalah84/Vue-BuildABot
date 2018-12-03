@@ -50,7 +50,7 @@
 </template>
 
 <script>
-//import currencyFilter from '../shared/currency-filter.js';
+// import currencyFilter from '../shared/currency-filter.js';
 export default {
   name: 'Cart',
   // filters: {
@@ -58,11 +58,11 @@ export default {
   // },
   computed: {
     cart() {
-        return this.$store.state.robots.cart;
-      //return this.$store.state.robots.cart;
+      return this.$store.state.robots.cart;
+      // return this.$store.state.robots.cart;
     },
     cartSaleItems() {
-      //return this.$store.getters.cartSaleItems;
+      // return this.$store.getters.cartSaleItems;
       return this.$store.getters['robots/cartSaleItems'];
     },
   },

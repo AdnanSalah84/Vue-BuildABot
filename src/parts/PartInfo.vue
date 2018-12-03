@@ -8,33 +8,33 @@
 </template>
 
 <script>
-//import parts from '../data/parts';
-import getPartsMixin from './get-parts-mixin.js';
+// import parts from '../data/parts';
+import getPartsMixin from './get-parts-mixin';
 
 export default {
   name: 'PartInfo',
   mixins: [getPartsMixin],
-  //props: ['partType', 'id'],
+  // props: ['partType', 'id'],
   props: {
     partType: { type: String },
-    id: { 
+    id: {
       type: [Number, String], // Either number or string
-      validator(value){
+      validator(value) {
         return Number.isInteger(Number(value));
-      }, 
-    }, 
+      },
+    },
   },
   computed: {
-      part(){
-        //   const partType = this.$router.params.partType;
-        //   const id = this.$router.params.id;
-        //const { partType, id } = this.$route.params;
+    part() {
+      //   const partType = this.$router.params.partType;
+      //   const id = this.$router.params.id;
+      // const { partType, id } = this.$route.params;
 
-        const { partType, id } = this; // if props is true in Router index!
+      const { partType, id } = this; // if props is true in Router index!
 
-        return this.parts[partType].find(part => part.id === +id);
-      }
-  }
+      return this.parts[partType].find(part => part.id === +id);
+    },
+  },
 
 //   props: {
 //     partType: { type: String },

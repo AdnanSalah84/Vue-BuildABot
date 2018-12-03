@@ -3,29 +3,32 @@
     <!-- <img @click="showPartInfo" :src="selectedPart.src" title="arm"/> -->
     <!-- {{pinPadding}} -->
     <router-link :to="{
-      name: 'Parts', 
-      params: { 
-        id: this.selectedPart.id, 
+      name: 'Parts',
+      params: {
+        id: this.selectedPart.id,
         partType: this.selectedPart.type
       }}">
-      <img :src="selectedPart.src" title="arm"/> 
+      <img :src="selectedPart.src" title="arm"/>
     </router-link>
     <button @click="selectPreviousPart()" class="prev-selector"></button>
     <button @click="selectNextPart()" class="next-selector"></button>
-    <!-- <span v-pin:position.top.right class="sale" v-show="selectedPart.onSale">Sale!</span> -->
+    <!-- <span v-pin:position.top.right class="sale"
+    v-show="selectedPart.onSale">Sale!</span> -->
 
-    <!-- <span v-pin="{ bottom: '10px', right: '5px' }" class="sale" v-show="selectedPart.onSale">Sale!</span> -->
+    <!-- <span v-pin="{ bottom: '10px', right: '5px' }" class="sale"
+    v-show="selectedPart.onSale">Sale!</span> -->
      <span
-      @click="pinPadding='30px'" 
-      v-pin="{ bottom: pinPadding, right: pinPadding }" class="sale" 
+      @click="pinPadding='30px'"
+      v-pin="{ bottom: pinPadding, right: pinPadding }" class="sale"
       v-show="selectedPart.onSale">Sale!</span>
   </div>
 </template>
 
 <script>
-//import availableParts from '../data/parts';
-//const parts = availableParts.heads;
-//import pinDirective from '../shared/pin-directive'; //Making Directive Availble Globally - main.js
+// import availableParts from '../data/parts';
+// const parts = availableParts.heads;
+// import pinDirective from '../shared/pin-directive';
+// Making Directive Availble Globally - main.js
 
 function getPreviousValidIndex(index, length) {
   const deprecatedIndex = index - 1;
@@ -38,26 +41,26 @@ function getNextValidIndex(index, length) {
 }
 
 export default {
- //directives: { pin: pinDirective },
- //props: ['parts','position'],
-   props: {
-     parts: {
-       type: Array,
-       required: true,
-     },
-     position: {
-       type: String,
-       required: true,
-       validator(value) {
-         return ['left', 'right', 'top', 'bottom', 'center'].includes(value);
-       },
-     },
-   },
+  // directives: { pin: pinDirective },
+  // props: ['parts','position'],
+  props: {
+    parts: {
+      type: Array,
+      required: true,
+    },
+    position: {
+      type: String,
+      required: true,
+      validator(value) {
+        return ['left', 'right', 'top', 'bottom', 'center'].includes(value);
+      },
+    },
+  },
   data() {
-    return { 
-        selectedPartIndex: 0,
-        pinPadding:'10px'
-      };
+    return {
+      selectedPartIndex: 0,
+      pinPadding: '10px',
+    };
   },
   computed: {
     selectedPart() {
@@ -74,9 +77,9 @@ export default {
     // showPartInfo(){
     //   // this.$router.push('/parts');
     //   this.$router.push({
-    //     name: 'Parts', 
-    //     params: { 
-    //       id: this.selectedPart.id, 
+    //     name: 'Parts',
+    //     params: {
+    //       id: this.selectedPart.id,
     //       partType: this.selectedPart.type
     //     }
     //   });
@@ -85,12 +88,12 @@ export default {
       this.$emit('partSelected', this.selectedPart);
     },
     selectNextPart() {
-        this.selectedPartIndex = getNextValidIndex(this.selectedPartIndex, this.parts.length);
-        //this.emitSelectedPart();
+      this.selectedPartIndex = getNextValidIndex(this.selectedPartIndex, this.parts.length);
+      // this.emitSelectedPart();
     },
     selectPreviousPart() {
-        this.selectedPartIndex = getPreviousValidIndex(this.selectedPartIndex, this.parts.length);
-        //this.emitSelectedPart();
+      this.selectedPartIndex = getPreviousValidIndex(this.selectedPartIndex, this.parts.length);
+      // this.emitSelectedPart();
     },
   },
 };

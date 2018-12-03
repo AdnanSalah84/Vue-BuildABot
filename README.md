@@ -24,3 +24,11 @@ npm run test
 ```
 npm run lint
 ```
+
+### Run build with the switch mode=development
+### So by default it runs in production mode
+npm run build -- --mode=development  
+
+npm run build -- --mode=staging 
+
+vue inspect --mode=production > webpack.config.js

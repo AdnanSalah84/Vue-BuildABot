@@ -1,7 +1,7 @@
 <template>
   <div v-if="availableParts" class="content">
     <div class="preview">
-      <!-- <CollapsibleSection> 
+      <!-- <CollapsibleSection>
       Try Comment out
       </CollapsibleSection> -->
       <CollapsibleSection>
@@ -27,99 +27,109 @@
           {{selectedRobot.head.title}}
           <span v-if="selectedRobot.head.onSale" class="sale">Sale!</span>
         </div> -->
-      <PartSelector :parts="availableParts.heads" position="top" @partSelected="part => selectedRobot.head = part" />
+      <PartSelector :parts="availableParts.heads"
+                     position="top"
+                     @partSelected="part => selectedRobot.head = part" />
     </div>
     <div class="middle-row">
-      <PartSelector :parts="availableParts.arms" position="left" @partSelected="part => selectedRobot.leftArm = part" />
-      <PartSelector :parts="availableParts.torsos" position="center" @partSelected="part => selectedRobot.torso = part" />
-      <PartSelector :parts="availableParts.arms" position="right" @partSelected="part => selectedRobot.rightArm = part" />
+      <PartSelector :parts="availableParts.arms"
+                    position="left"
+                    @partSelected="part => selectedRobot.leftArm = part" />
+      <PartSelector :parts="availableParts.torsos"
+                    position="center"
+                    @partSelected="part => selectedRobot.torso = part" />
+      <PartSelector :parts="availableParts.arms"
+                     position="right"
+                    @partSelected="part => selectedRobot.rightArm = part" />
     </div>
     <div class="bottom-row">
-      <PartSelector :parts="availableParts.bases" position="bottom" @partSelected="part => selectedRobot.base = part" />
+      <PartSelector :parts="availableParts.bases"
+                     position="bottom"
+                     @partSelected="part => selectedRobot.base = part" />
     </div>
   </div>
 </template>
 
 <script>
-  import { mapActions, mapMutations } from 'vuex';
+import { mapActions /* mapMutations */ } from 'vuex';
 
-  //import availableParts from '../data/parts';
-  import createdHookMixin from './created-hook-mixin';
-  import PartSelector from './PartSelector';
-  import CollapsibleSection from '../shared/CollapsibleSection.vue';
+// import availableParts from '../data/parts';
+import createdHookMixin from './created-hook-mixin';
+import PartSelector from './PartSelector.vue';
+import CollapsibleSection from '../shared/CollapsibleSection.vue';
 
-  export default {
-    name: 'RobotBuilder',
-    created(){
-      //this.$store.dispatch('robots/getParts');
-      this.getParts(); // Added mapAction
+export default {
+  name: 'RobotBuilder',
+  created() {
+    // this.$store.dispatch('robots/getParts');
+    this.getParts(); // Added mapAction
+  },
+  beforeRouteLeave(to, from, next) {
+    if (this.addedToCart) {
+      next(true);
+    } else {
+      const response = confirm('You have not added your robot to your cart, are you sure you want to leave?');
+      next(response);
+    }
+  },
+  components: {
+    PartSelector,
+    CollapsibleSection,
+  },
+  data() {
+    return {
+      // availableParts,
+      addedToCart: false,
+      cart: [],
+      selectedRobot: {
+        head: {},
+        leftArm: {},
+        torso: {},
+        rightArm: {},
+        base: {},
+      },
+    };
+  },
+  mixins: [createdHookMixin],
+  computed: {
+    availableParts() {
+      return this.$store.state.robots.parts;
     },
-    beforeRouteLeave(to, from, next) {
-      if(this.addedToCart){
-        next(true);
-      } else {
-        const response = confirm('You have not added your robot to your cart, are you sure you want to leave?');
-        next(response);
-      }
+    saleBorderClass() {
+      return this.selectedRobot.head.onSale ? 'sale-border' : '';
     },
-    components: {
-      PartSelector,
-      CollapsibleSection
-    },
-    data() {
+    headerStyle() {
       return {
-        //availableParts,
-        addedToCart: false,
-        cart: [],
-        selectedRobot: {
-          head: {},
-          leftArm: {},
-          torso: {},
-          rightArm: {},
-          base: {}
-        },
+        border: this.selectedRobot.head.onSale ? '3px solid red' : '3px solid #aaa',
       };
     },
-    mixins: [createdHookMixin],
-    computed: {
-      availableParts(){
-        return this.$store.state.robots.parts;
-      },
-      saleBorderClass() {
-        return this.selectedRobot.head.onSale ? 'sale-border' : '';
-      },
-      headerStyle() {
-        return {
-          border: this.selectedRobot.head.onSale ? '3px solid red' : '3px solid #aaa',
-        }
-      },
-    },
-    methods: {
-      ...mapActions('robots', ['getParts', 'addRobotToCart']),
-      //...mapMutations('robots', ['someMutations']), // If we have mutation then
-      
-      addToCart() {
-        const robot = this.selectedRobot;
-        const cost = robot.head.cost +
+  },
+  methods: {
+    ...mapActions('robots', ['getParts', 'addRobotToCart']),
+    // ...mapMutations('robots', ['someMutations']), // If we have mutation then
+
+    addToCart() {
+      const robot = this.selectedRobot;
+      const cost = robot.head.cost +
           robot.leftArm.cost +
           robot.torso.cost +
           robot.rightArm.cost +
           robot.base.cost;
-        //Vuex
-        //this.$store.commit('addRobotToCart', Object.assign({}, robot, { cost }));
-        
-        //this.$store.dispatch('robots/addRobotToCart', Object.assign({}, robot, { cost }))
-          //.then(() => this.$router.push('/cart'));
+        // Vuex
+        // this.$store.commit('addRobotToCart', Object.assign({}, robot, { cost }));
 
-        //Added mapActions  
-        this.addRobotToCart(Object.assign({}, robot, { cost }))
-          .then(() => this.$router.push('/cart'));
-        
-        //this.cart.push(Object.assign({}, robot, { cost }));
-        this.addedToCart = true;
-      },
-    }
-  }
+        // this.$store.dispatch('robots/addRobotToCart', Object.assign({}, robot, { cost }))
+      // .then(() => this.$router.push('/cart'));
+
+        // Added mapActions
+      this.addRobotToCart(Object.assign({}, robot, { cost }))
+        .then(() => this.$router.push('/cart'));
+
+      // this.cart.push(Object.assign({}, robot, { cost }));
+      this.addedToCart = true;
+    },
+  },
+};
 </script>
 
 <style lang="scss">

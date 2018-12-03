@@ -7,7 +7,7 @@
     Root Getter Foo: {{rootGetterFoo}} <br/>
     Robots Getter Foo: {{robotsGetterFoo}} <br/>
     <!-- Users Getter Foo: {{usersGetterFoo}} <br/> -->
-    <header> 
+    <header>
       <nav>
         <ul>
           <li class="nav-item">
@@ -45,49 +45,49 @@
 </template>
 
 <script>
-  // import HomePage from './home/HomePage.vue';
-  //import RobotBuilder from './build/RobotBuilder.vue'
-  import { mapState, mapGetters } from 'vuex';
+// import HomePage from './home/HomePage.vue';
+// import RobotBuilder from './build/RobotBuilder.vue'
+import { mapState, mapGetters } from 'vuex';
 
-  export default {
-    name: 'app',
-    computed: {
-      ...mapState({ 
-        rootFoo: 'foo', 
-        usersFoo: state => state.users.foo
-      }),
-      ...mapState('robots', { robotsFoo: 'foo'}),
+export default {
+  name: 'app',
+  computed: {
+    ...mapState({
+      rootFoo: 'foo',
+      usersFoo: state => state.users.foo,
+    }),
+    ...mapState('robots', { robotsFoo: 'foo' }),
 
-      ...mapGetters({ rootGetterFoo: 'foo'}),
-      ...mapGetters('robots', { robotsGetterFoo: 'foo'}),
-      /*rootFoo(){
+    ...mapGetters({ rootGetterFoo: 'foo' }),
+    ...mapGetters('robots', { robotsGetterFoo: 'foo' }),
+    /* rootFoo(){
           return this.$store.state.foo;
-      },*/
-      /*robotsFoo(){
+      }, */
+    /* robotsFoo(){
         return this.$store.state.robots.foo;
-      },*/
-      /*usersFoo(){
+      }, */
+    /* usersFoo(){
         return this.$store.state.users.foo;
-      },*/
+      }, */
 
-      /*rootGetterFoo(){
+    /* rootGetterFoo(){
         return this.$store.getters.foo;
-      },*/
-      /*robotsGetterFoo(){
+      }, */
+    /* robotsGetterFoo(){
         return this.$store.getters['robots/foo'];
-      },*/
-      // usersGetterFoo(){
-      //   return this.$store.getters['users/foo'];
-      // },
-      cart(){
-        return this.$store.state.robots.cart;
-      }
-    }
-    // components: {
-    //   //HomePage,
-    //   RobotBuilder
+      }, */
+    // usersGetterFoo(){
+    //   return this.$store.getters['users/foo'];
     // },
-  };
+    cart() {
+      return this.$store.state.robots.cart;
+    },
+  },
+  // components: {
+  //   //HomePage,
+  //   RobotBuilder
+  // },
+};
 </script>
 
 <style>
@@ -159,7 +159,7 @@
     background-color: #aaa;
     width: 100px;
     min-height: 300px;
-  }  
+  }
   .cart-items {
     position: absolute;
     top: -5px;
